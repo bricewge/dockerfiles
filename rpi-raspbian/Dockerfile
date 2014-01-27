@@ -10,8 +10,8 @@ MAINTAINER Brice Waegeneire, "https://bricewge.fr"
 RUN echo "deb http://archive.raspbian.org/raspbian wheezy main contrib non-free" > /etc/apt/sources.list
 RUN echo "deb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free" >> /etc/apt/sources.list
 RUN apt-get update 
-RUN apt-get -y install apt-utils dialog 
-RUN apt-get -y upgrade
+RUN apt-get -y -q install apt-utils dialog 
+RUN apt-get -y -q upgrade
 
 # Use Paris time
 RUN rm /etc/localtime
