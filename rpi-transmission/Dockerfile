@@ -14,7 +14,7 @@ RUN apt-get -y -q install transmission-daemon
 RUN rm /etc/transmission-daemon/settings.json
 ADD settings.json /etc/transmission-daemon/settings.json
 
-USER debian-trasmission
+USER debian-transmission
 EXPOSE 9091
 
 CMD ["/usr/bin/transmission-daemon", "--foreground", "--config-dir /etc/transmission-daemon/"]
