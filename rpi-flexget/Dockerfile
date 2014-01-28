@@ -14,9 +14,8 @@ RUN pip install flexget
 # Configure flexget
 ## TODO use dotfiles
 RUN useradd -m flexget
-RUN mkdir /home/flexget/.flexget
-ADD https://raw2.github.com/bricewge/dotfiles-flexget/master/.config/flexget/config.yml /home/flexget/.flexget
-RUN chown flexget:flexget -R /home/flexget/.flexget
+ADD https://raw2.github.com/bricewge/dotfiles-flexget/master/.config/flexget/config.yml /home/flexget/
+RUN chown flexget:flexget /home/flexget/config.yml
 
 # Add startup script
 ADD flexget.sh /home/flexget/
