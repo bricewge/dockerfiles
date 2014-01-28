@@ -1,22 +1,27 @@
 # bricewge/rpi-flexget
-#
 # VERSION 0.1
+#
+# BUILD-USING:	docker build -t bricewge/rpi-flexget .
+# RUN-USING:	docker run -d -link transmission:trans -name flexget bricewge/rpi-flexget
 
 FROM bricewge/rpi-raspbian
-MAINTAINER Brice Waegeneire, bricewge@gmail.com
-
-USER flexget
-WORKDIR /home/flexget
+MAINTAINER Brice Waegeneire, "https://bricewge.fr"
 
 # Install flexget, transmission and their depedencies
-## TODO Put wget in bricewge/rpi-raspbian
-RUN apt-get -y install transmission-daemon python-transmissionrpc python python-pip python-dev
+RUN apt-get -y install python-transmissionrpc python python-pip python-dev
 RUN pip install flexget
 
-RUN useradd -m flexget
-
-
 # Configure flexget
-RUN mkdir /home/flexget/.flexget && wget https://raw2.github.com/bricewge/dotfiles-flexget/master/.config/flexget/config.yml -P /home/flexget/.flexget/ && chown flexget:flexget -R /home/flexget/.flexget
+## TODO use dotfiles
+RUN useradd -m flexget
+RUN mkdir /home/flexget/.flexget
+ADD https://raw2.github.com/bricewge/dotfiles-flexget/master/.config/flexget/config.yml /home/flexget/.flexget
+RUN chown flexget:flexget -R /home/flexget/.flexget
 
+# Add startup script
+ADD flexget.sh /home/flexget/
+RUN chmod 755 /home/flexget/flexget.sh
 
+USER flexget
+
+CMD ["/bin/bash", "-e", "/home/flexget/flexget.sh"]
