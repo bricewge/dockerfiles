@@ -2,7 +2,7 @@
 # VERSION 0.1
 # 
 # BUILD-USING:	docker build -t bricewge/rpi-transmission .
-# RUN-USING:	docker run -d -p 9091:9091 -v /mnt/hdd/Torrents:/var/lib/transmission-daemon/downloads:rw -name transmission bricewge/rpi-transmission
+# RUN-USING:	docker run -d -p 9091:9091 -v /mnt/hdd/Torrents:/var/lib/transmission-daemon/downloads:rw -h transmission -name transmission bricewge/rpi-transmission
 
 FROM bricewge/rpi-raspbian
 MAINTAINER Brice Waegeneire, "https://bricewge.fr"
