@@ -17,4 +17,4 @@ ADD settings.json /etc/transmission-daemon/settings.json
 USER debian-transmission
 EXPOSE 9091
 
-CMD ["/usr/bin/transmission-daemon", "--foreground", "--config-dir /etc/transmission-daemon/"]
+CMD ["/usr/bin/transmission-daemon", "--foreground", "--config-dir", "/etc/transmission-daemon/"]
