@@ -13,6 +13,7 @@ RUN apt-get -y -q install openssh-server sudo
 # Configure sshd
 RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config.old
 ADD sshd_config /etc/ssh/
+ADD chown root:root /etc/ssh/sshd_config
 RUN mkdir /var/run/sshd
 # Configure sudo to be used without password
 RUN sed -i '/%sudo/c\%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
