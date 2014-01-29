@@ -24,4 +24,4 @@ RUN echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT5fzsASMTCqeFuB4IcNzillPec7yQa7K
 RUN chown bricewge:bricewge -R /home/bricewge
 
 EXPOSE 22
-CMD [/"usr/sbin/sshd", "-D"]
+CMD ["/usr/sbin/sshd", "-D"]
