@@ -14,7 +14,7 @@ RUN pip install flexget
 # Configure flexget
 ## TODO use dotfiles
 RUN useradd -m flexget
-ADD https://git.olivierdelort.net/bricewge/dotfiles-flexget/raw/orgify/.config/flexget/config.yml /home/flexget/
+ADD http://git.olivierdelort.net/bricewge/dotfiles-flexget/raw/orgify/.config/flexget/config.yml /home/flexget/
 RUN chown flexget:flexget /home/flexget/config.yml
 
 # Add startup script
