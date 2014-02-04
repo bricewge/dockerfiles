@@ -2,7 +2,7 @@
 # VERSION 0.1
 #
 # BUILD-USING:	docker build -t bricewge/rpi-flexget .
-# RUN-USING:	docker run -d -link transmission:trans -h flexget -name flexget bricewge/rpi-flexget
+# RUN-USING:	docker run -d -p 22 -v /mnt/hdd/:/mnt/hdd/:r -link transmission:trans -h flexget -name flexget bricewge/rpi-flexget
 
 FROM bricewge/rpi-ssh
 MAINTAINER Brice Waegeneire, "https://bricewge.fr"

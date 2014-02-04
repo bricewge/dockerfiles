@@ -10,15 +10,20 @@ MAINTAINER Brice Waegeneire, "https://bricewge.fr"
 RUN echo "deb http://archive.raspbian.org/raspbian wheezy main contrib non-free" > /etc/apt/sources.list
 RUN echo "deb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free" >> /etc/apt/sources.list
 RUN apt-get update 
-RUN apt-get -y -q install apt-utils dialog 
+RUN apt-get -y -q install apt-utils locales nano git curl
 RUN apt-get -y -q upgrade
 
 # Use Paris time
 RUN rm /etc/localtime
 RUN cp /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
-# Install utilities and favorite software
-RUN apt-get install -y nano git wget
+# Set locales
+RUN printf "en_US.UTF-8 UTF-8\nfr_FR.UTF-8 UTF-8\n" >> /etc/locale.gen
+RUN printf "LANG=fr_FR.UTF-8" > /etc/default/locale
+RUN locale-gen
+
+# Use defalt root password
+RUN echo "root:root" | chpasswd
 
 ## TODO Customize the image with my dotfiles and my favorite software
 #RUN apt-get -y install vcsh mr emacs zsh
