@@ -19,8 +19,8 @@ RUN rm /etc/localtime
 RUN cp /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 # Set locales
-RUN printf "en_US.UTF-8 UTF-8\nfr_FR.UTF-8 UTF-8\n" >> /etc/locale.gen
-RUN printf "LANG=fr_FR.UTF-8" > /etc/default/locale
+RUN sed -i '/#fr_FR.UTF-8 UTF-8  /c\fr_FR.UTF-8 UTF-8  ' /etc/locale.gen
+RUN sed -i '/#en_US.UTF-8 UTF-8  /c\en_US.UTF-8 UTF-8  ' /etc/locale.gen
 RUN locale-gen
 
 # Use defalt root password
