@@ -1,28 +1,22 @@
 # bricewge/rpi-flexget
-# VERSION 0.1
+# VERSION 0.2
 #
 # BUILD-USING:	docker build -t bricewge/rpi-flexget .
-# RUN-USING:	docker run -d -p 22 -v /mnt/hdd/:/mnt/hdd/:r -link transmission:trans -h flexget -name flexget bricewge/rpi-flexget
+# RUN-USING:	docker run -d -c 100 -m 50m -p 22 -v /mnt/hdd/:/mnt/hdd/:rw -link transmission:trans -h flexget -name flexget bricewge/rpi-flexget
 
-FROM bricewge/rpi-ssh
+FROM bricewge/rpi-base
 MAINTAINER Brice Waegeneire, "https://bricewge.fr"
 
 # Install flexget, transmission and their depedencies
 RUN apt-get -y install python-transmissionrpc python python-pip python-dev supervisor
 RUN pip install flexget
 
-# Configure flexget
-## TODO use dotfiles
-RUN useradd -m flexget
-ADD http://git.olivierdelort.net/bricewge/dotfiles-flexget/raw/orgify/.config/flexget/config.yml /home/flexget/
-RUN chown flexget:flexget /home/flexget/config.yml
-
 # Add startup script
-ADD flexget.sh /home/flexget/
-RUN chmod 755 /home/flexget/flexget.sh
+ADD flexget.sh /home/bricewge/
+RUN chmod 755 /home/bricewge/flexget.sh
 
 # Supervisor
-RUN mkdir -p /var/log/supervisor
+RUN rm /etc/supervisor/conf.d/supervisord.conf
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 22
