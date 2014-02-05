@@ -12,7 +12,7 @@ MAINTAINER Brice Waegeneire, "https://bricewge.fr"
 RUN echo "deb http://archive.raspbian.org/raspbian wheezy main contrib non-free" > /etc/apt/sources.list
 RUN echo "deb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free" >> /etc/apt/sources.list
 RUN apt-get -y -q update && apt-get -y -q dist-upgrade
-RUN apt-get -y -q install apt-utils locales nano git mr vcsh curl openssh-server sudo
+RUN apt-get -y -q install apt-utils locales nano git mr vcsh curl openssh-server sudo supervisor
 
 # Use Paris time
 RUN rm /etc/localtime
