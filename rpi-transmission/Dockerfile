@@ -1,10 +1,10 @@
 # bricewge/rpi-transmission
-# VERSION 0.1
+# VERSION 0.2
 # 
 # BUILD-USING:	docker build -t bricewge/rpi-transmission .
-# RUN-USING:	docker run -d -p 9091:9091 -v /mnt/hdd/Torrents:/var/lib/transmission-daemon/downloads:rw -h transmission -name transmission bricewge/rpi-transmission
+# RUN-USING:	docker run -d -c 100 -m 50m -p 9091:9091 -v /mnt/hdd/:/mnt/hdd/:rw -h transmission -name transmission bricewge/rpi-transmission
 
-FROM bricewge/rpi-raspbian
+FROM bricewge/rpi-base
 MAINTAINER Brice Waegeneire, "https://bricewge.fr"
 
 RUN apt-get -y -q install transmission-daemon
@@ -14,7 +14,10 @@ RUN apt-get -y -q install transmission-daemon
 RUN rm /etc/transmission-daemon/settings.json
 ADD settings.json /etc/transmission-daemon/settings.json
 
-USER debian-transmission
-EXPOSE 9091
+# Supervisor
+RUN rm /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-CMD ["/usr/bin/transmission-daemon", "--foreground", "--config-dir", "/etc/transmission-daemon/"]
+EXPOSE 9091 22
+
+CMD ["/usr/bin/supervisord"]
