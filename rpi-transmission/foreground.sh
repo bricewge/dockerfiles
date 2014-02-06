@@ -1,5 +1,3 @@
 #!/bin/bash
 
-/etc/init.d/transmission-daemon start
-
-/etc/init.d/transmission-daemon force-reload
+/usr/bin/sudo -u debian-transmission /usr/bin/transmission-daemon --config-dir /etc/transmission-daemon/
