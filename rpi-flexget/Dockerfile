@@ -1,7 +1,7 @@
 # bricewge/rpi-flexget
 # VERSION 0.2
 #
-# BUILD-USING:	docker build -t bricewge/rpi-flexget .
+# BUILD-USING:	docker build -t bricewge/rpi-flexget ./rpi-flexget
 # RUN-USING:	docker run -d -c 100 -m 50m -p 22 -v /mnt/hdd/:/mnt/hdd/:rw -link transmission:trans -h flexget -name flexget bricewge/rpi-flexget
 
 FROM bricewge/rpi-base

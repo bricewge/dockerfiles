@@ -2,7 +2,7 @@
 # VERSION 0.2
 # 
 # BUILD-USING:	docker build -t bricewge/rpi-transmission .
-# RUN-USING:	docker run -d -c 100 -m 50m -p 9091:9091 -v /mnt/hdd/:/mnt/hdd/:rw -h transmission -name transmission bricewge/rpi-transmission
+# RUN-USING:	docker run -d -c 100 -m 50m -p 9091:9091 -p 22 -v /mnt/hdd/:/mnt/hdd/:rw -h transmission -name transmission bricewge/rpi-transmission
 
 FROM bricewge/rpi-base
 MAINTAINER Brice Waegeneire, "https://bricewge.fr"
