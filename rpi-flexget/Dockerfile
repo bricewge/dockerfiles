@@ -8,7 +8,7 @@ FROM bricewge/rpi-base
 MAINTAINER Brice Waegeneire, "https://bricewge.fr"
 
 # Install flexget, transmission and their depedencies
-RUN apt-get -y install python-transmissionrpc python python-pip python-dev
+RUN apt-get -yq install python-transmissionrpc python2.7 python-pip python2.7-dev
 RUN pip install flexget
 
 # Add startup script
