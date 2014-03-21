@@ -50,7 +50,7 @@ RUN mkdir -p /var/log/supervisor
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ## Cron
-## TODO enable crontab to be update dotfiles config
+## TODO enable crontab to update dotfiles config
 
 EXPOSE 22
 
