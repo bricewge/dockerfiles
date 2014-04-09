@@ -4,7 +4,9 @@
 # BUILD-USING:	docker build -t bricewge/rpi-base .
 # RUN-USING:	docker run -d -p 22 bricewge/rpi-base
 
-FROM resin/rpi-raspbian:wheezy
+# The last images as a /usr broken so we take is parent layer
+# FROM resin/rpi-raspbian:wheezy
+FROM b28d09077788
 MAINTAINER Brice Waegeneire, "https://bricewge.fr"
 
 
@@ -23,7 +25,7 @@ RUN sed -i '/#fr_FR.UTF-8 UTF-8  /c\fr_FR.UTF-8 UTF-8  ' /etc/locale.gen
 RUN sed -i '/#en_US.UTF-8 UTF-8  /c\en_US.UTF-8 UTF-8  ' /etc/locale.gen
 RUN locale-gen
 
-# Use defalt root password
+# Use default root password
 RUN echo "root:root" | chpasswd
 
 # Configure sshd
