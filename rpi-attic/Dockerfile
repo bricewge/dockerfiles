@@ -12,8 +12,7 @@ RUN apt-get -y -q install python3-pip python3-openssl
 # Installing attic, it doesn't work via pip so we do it manualy
 RUN curl -O https://pypi.python.org/packages/source/A/Attic/Attic-0.12.tar.gz
 RUN tar -xvzf Attic-0.12.tar.gz
-RUN cd Attic-0.12
-RUN python3.2 setup.py install
+RUN cd Attic-0.12 ; python3.2 setup.py install
 
 # TODO put another ssh key file for attic software
 EXPOSE 22
