@@ -43,7 +43,7 @@ RUN echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDT5fzsASMTCqeFuB4IcNzillPec7yQa7K
 # Configure user
 RUN (HOME=/home/bricewge vcsh clone http://git.olivierdelort.net/bricewge/dotfiles-mr.git mr)
 RUN chown bricewge:users -R /home/bricewge
-RUN (cd /home/bricewge ; su bricewge -c "mr -t update")
+RUN cd /home/bricewge ; su bricewge -c "mr -t update"
 
 
 
