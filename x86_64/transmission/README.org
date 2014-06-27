@@ -1,40 +1,36 @@
 * bricewge/transmission
 Docker image using phusion/baseimage, for runing transmission web
-interface (BitTorrent client)
+interface (BitTorrent client).
 
 * Build
 Builded: =docker build -t bricewge/transmission ./x86_64/transmission=
 
 * Using
-It can be run using:
+For example it can be run like this:
 #+BEGIN_SRC sh
 docker run -d -p 22001:22 -p 9091:9091 \
    -h transmission \
    --name transmission \
-   -v /mnt/hdd/:/mnt/hdd/:rw \
+   -v /mnt/hddold/Torrents:/mnt/Torrents/:rw \
+   -v /mnt/hddold/Movies:/mnt/Movies/:rw \
+   -e USER_T=transmission \
+   -e PASSWD_T=transmission \
+   -e WHITELIST_T=127.0.0.1,192.168.1.* \
    bricewge/transmission
 #+END_SRC
 
 ** Transmission variables
-#+BEGIN_SRC sh
-docker run -d -p 22 -p 9091 \
-   -e USER_T=user_name \
-   -e PASSWD_T=password  \
-   -e WHITELIST_T=*.*.*.* \
-   -v /mnt/hdd/:/mnt/hdd/:rw \
-   bricewge/transmission
-#+END_SRC
 
-By default the username is =transmission= and the password is
-=transmission= also.
-You can only acces the web interface from the localhost (127.0.0.1) or
-if you are within 192.168.1.1-254.
+
+By default transmission (daemon and web interface) are available
+from every hosts, the username is =username=, the password is =password=.
+Which is unsafe think to restrict all of this.
 
 ** SSH
-To connect to the contain with you'll need to check out the
-phusion/baseimage documentation here:
-https://github.com/phusion/baseimage-docker/raw/master/image/insecure_key
+To connect to the container with SSH you'll need to check out the
+[[https://github.com/phusion/baseimage-docker/raw/master/image/insecure_key][phusion/baseimage documentation]].
 
+If have the right key already setup you can do it like as follow.
 Find out the ID of the container that you just ran:
 =docker ps=
 Once you have the ID, look for its IP address with:
@@ -42,6 +38,8 @@ Once you have the ID, look for its IP address with:
 Now SSH into the container as follows:
 =ssh -i /path-to/your_key root@<IP address>=
 
-* TODO
+* Todo
 ** use dotfiles
 ** update blocklist
+** ¿generate hash of the password instead of a clear one?
+** ¿set a default username and password?

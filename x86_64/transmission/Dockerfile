@@ -21,7 +21,7 @@ RUN apt-get update
 RUN apt-get -y -q install transmission-daemon
 
 # Configure transmission
-RUN mkdir /mnt/torrents
+RUN mkdir /mnt/{Torrents,Films}
 RUN rm /etc/transmission-daemon/settings.json
 ADD settings.json /etc/transmission-daemon/settings.json
 
