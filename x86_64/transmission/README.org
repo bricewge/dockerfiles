@@ -12,7 +12,7 @@ docker run -d -p 22001:22 -p 9091:9091 \
    -h transmission \
    --name transmission \
    -v /mnt/hddold/Torrents:/mnt/Torrents/:rw \
-   -v /mnt/hddold/Movies:/mnt/Movies/:rw \
+   -v /mnt/hddold/Films:/mnt/Films/:rw \
    -e USER_T=transmission \
    -e PASSWD_T=transmission \
    -e WHITELIST_T=127.0.0.1,192.168.1.* \
