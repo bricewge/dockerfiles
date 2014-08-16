@@ -18,17 +18,29 @@ CMD ["/sbin/my_init"]
 
 # Install transmission
 RUN apt-get update
-RUN apt-get -y -q install transmission-daemon
-
+RUN apt-get -y -q install transmission-daemon transmission-cli
+# Configure the transmission user
+RUN groupmod -g 501 debian-transmission
+RUN usermod -u 501 debian-transmission
 # Configure transmission
 RUN mkdir /mnt/Torrents
 RUN rm /etc/transmission-daemon/settings.json
 ADD settings.json /etc/transmission-daemon/settings.json
+RUN chown 501:501 -R /etc/transmission-daemon/
 
+# Set the transmission daemon and the setup script
 RUN mkdir /etc/service/transmission
-ADD run-transmission /etc/service/transmission/run
-
+ADD transmission.sh /etc/service/transmission/run
 ADD 10-transmission.sh /etc/my_init.d/10-transmission.sh
+
+# Set cron to update the blocklist daily
+ADD cron.conf /tmp/cron.conf
+RUN crontab /tmp/cron.conf
+
+# Set variable environment
+RUN echo "username" > /etc/container_environment/USER_T
+RUN echo "password" > /etc/container_environment/PASSWD_T
+RUN echo "127.0.0.1,192.168.1.\*" > /etc/container_environment/WHITELIST_T
 
 EXPOSE 9091 22
 
