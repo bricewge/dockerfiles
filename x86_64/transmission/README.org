@@ -1,6 +1,6 @@
 * bricewge/transmission
 Docker image using phusion/baseimage, for runing transmission web
-interface (BitTorrent client) with auto-update of the blocklist.
+interface (BitTorrent client).
 
 * Build
 Builded: =docker build -t bricewge/transmission ./x86_64/transmission=
@@ -21,6 +21,7 @@ docker run -d -p 22001:22 -p 9091:9091 \
 
 ** Transmission variables
 
+
 By default transmission (daemon and web interface) are available
 from every hosts, the username is =username=, the password is =password=.
 Which is unsafe think to restrict all of this.
@@ -38,4 +39,10 @@ Now SSH into the container as follows:
 =ssh -i /path-to/your_key root@<IP address>=
 
 * Todo
-** get setings.conf form dotfiles
+** use dotfiles
+** update blocklist
+#+BEGIN_SRC sh
+transmission-remote -n $USER_T:$PASSWD_T --blocklist-update 
+#+END_SRC
+Penser à aller voir le variablent d'environement de phusion/baseimage
+** ¿set a default username and password for rpc-transmission?
