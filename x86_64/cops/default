@@ -1,0 +1,69 @@
+server {
+    listen  80;
+
+    root /var/www;
+    #index index.html index.htm index.php;
+    index feed.php;
+
+    # Make site accessible from http://set-ip-address.xip.io
+    server_name biblio.bricewge.fr;
+
+    access_log /var/log/nginx/biblio.bricewge.fr-access.log;
+    error_log  /var/log/nginx/biblio.bricewge.fr-error.log error;
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.html /index.php?$query_string;
+    }
+
+    location = /favicon.ico { log_not_found off; access_log off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    error_page 404 /index.php;
+
+    # pass the PHP scripts to php5-fpm
+    # Note: \.php$ is susceptible to file upload attacks
+    # Consider using: "location ~ ^/(index|app|app_dev|config)\.php(/|$) {"
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        # With php5-fpm:
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param HTTPS off;
+    }
+
+    # Deny .htaccess file access
+    location ~ /\.ht {
+        deny all;
+    }
+    
+    # COPS location
+    location /download/ {
+          rewrite ^/download/(\d+)/(\d+)/.*\.(.*)$ /fetch.php?data=$1&db=$2&type=$3 last;
+          rewrite ^/download/(\d+)/.*\.(.*)$ /fetch.php?data=$1&type=$2 last;
+          break;
+        }
+
+        location ~ ^/images.*\.(gif|png|ico|jpg)$ {
+                expires 31d;
+        }
+
+        location ~ .(js|css|eot|svg|woff|ttf)$ {
+                expires 31d;
+        }
+
+
+    #location ~ \.php$ {
+    #   include /etc/nginx/fastcgi_params;
+    #   fastcgi_param   SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    #   fastcgi_pass    unix:/tmp/fcgi.sock;
+    #}
+
+    location /Calibre {
+        root /mnt/Livres;
+        internal;
+    }
+}
+
