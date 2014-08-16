@@ -41,5 +41,8 @@ Now SSH into the container as follows:
 * Todo
 ** use dotfiles
 ** update blocklist
-** ¿generate hash of the password instead of a clear one?
-** ¿set a default username and password?
+#+BEGIN_SRC sh
+transmission-remote -n $USER_T:$PASSWD_T --blocklist-update 
+#+END_SRC
+Penser à aller voir le variablent d'environement de phusion/baseimage
+** ¿set a default username and password for rpc-transmission?
