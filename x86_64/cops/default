@@ -2,8 +2,8 @@ server {
     listen  80;
 
     root /var/www;
-    #index index.html index.htm index.php;
-    index feed.php;
+    index index.html index.htm index.php;
+    #index feed.php;
 
     # Make site accessible from http://set-ip-address.xip.io
     server_name biblio.bricewge.fr;

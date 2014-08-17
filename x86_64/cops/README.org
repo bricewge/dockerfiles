@@ -8,10 +8,10 @@ Builded: =docker build -t bricewge/cops ./x86_64/cops=
 * Using
 For example it can be run like this:
 #+BEGIN_SRC sh
-docker run -d -p 22002:22 -p 80001:80 \
+docker run -d -p 22002:22 -p 8001:80 \
    -h cops \
    --name cops \
-   -v /mnt/Livres:/mnt/Livres/:rw \
+   -v /mnt/hddold/Livres:/mnt/Livres/:rw \
    bricewge/cops
 #+END_SRC
 
@@ -28,3 +28,5 @@ Once you have the ID, look for its IP address with:
 Now SSH into the container as follows:
 =ssh -i /path-to/your_key root@<IP address>=
 
+* TODO
+** add authentification to the subdomain
