@@ -1,0 +1,30 @@
+* bricewge/weechat
+Docker image using phusion/baseimage, for runing a WeeChat relay.
+
+* Build
+Builded: =docker build -t bricewge/weechat ./x86_64/weechat=
+
+* Using
+For example it can be run like this:
+#+BEGIN_SRC sh
+docker run -d -p 22004:22 -p 4001:4001 \
+   -h weechat \
+   --name weechat \
+   bricewge/weechat
+#+END_SRC
+
+** SSH
+To connect to the container with SSH you'll need to check out the
+[[https://github.com/phusion/baseimage-docker/raw/master/image/insecure_key][phusion/baseimage documentation]].
+
+If have the right key already setup you can do it like as follow.
+Find out the ID of the container that you just ran:
+=docker ps=
+Once you have the ID, look for its IP address with:
+=docker inspect -f "{{ .NetworkSettings.IPAddress }}" <ID>=
+Now SSH into the container as follows:
+=ssh -i /path-to/your_key root@<IP address>=
+
+* TODO
+** Use SSL keys
+http://dev.weechat.org/post/2012/07/27/SSL-in-Relay-plugin
