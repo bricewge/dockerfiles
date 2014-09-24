@@ -7,11 +7,15 @@ Builded: =docker build -t bricewge/weechat ./x86_64/weechat=
 * Using
 For example it can be run like this:
 #+BEGIN_SRC sh
-docker run -d -p 22004:22 -p 4001:4001 \
+docker run -t -d -p 22004:22 -p 8004:8004 \
    -h weechat \
    --name weechat \
+   -e relaypasswd=password \
    bricewge/weechat
 #+END_SRC
+
+** WeeChat variables
+The default password to the relay is =password=, this is insecure, set an other one via the relaypasswd environement variable.
 
 ** SSH
 To connect to the container with SSH you'll need to check out the
@@ -26,5 +30,8 @@ Now SSH into the container as follows:
 =ssh -i /path-to/your_key root@<IP address>=
 
 * TODO
-** Use SSL keys
-http://dev.weechat.org/post/2012/07/27/SSL-in-Relay-plugin
+** Choose the name of the user
+Don't hardcode bricewge, do the same as the password of the relay.
+
+* Ressources
+Example: https://github.com/creack/weechat-docker

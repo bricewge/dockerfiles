@@ -22,15 +22,27 @@ RUN apt-get update
 RUN apt-get -y -q install weechat
 
 # Configure WeeChat
-#RUN rm /etc/transmission-daemon/settings.json
-#ADD settings.json /etc/transmission-daemon/settings.json
+RUN useradd -m bricewge
+
+## Generate SSL keys
+RUN mkdir -p /home/bricewge/.weechat/ssl
+RUN openssl req -nodes -newkey rsa:4096 -keyout /home/bricewge/.weechat/ssl/relay.pem -x509 -days 365 -out /home/bricewge/.weechat/ssl/relay.pem -subj "/CN=irc.bricewge.fr/CN=bricewge.fr"
+
+## Add config files
+ADD irc.conf /home/bricewge/.weechat/
+ADD weechat.conf /home/bricewge/.weechat/
+ADD relay.conf /home/bricewge/.weechat/
+RUN chown bricewge:bricewge -R /home/bricewge/.weechat
 
 RUN mkdir /etc/service/weechat
 ADD weechat.sh /etc/service/weechat/run
+ADD 10-weechat.sh /etc/my_init.d/10-weechat.sh
 
-#ADD 10-transmission.sh /etc/my_init.d/10-transmission.sh
+# Support UTF8
+#ENV LANG C.UTF-8
+#ENV TERM screen-256color
 
-EXPOSE 4001 22
+EXPOSE 8004 22
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
