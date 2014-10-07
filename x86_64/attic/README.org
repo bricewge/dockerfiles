@@ -17,7 +17,6 @@ docker run -d -p 22003:22 \
    bricewge/attic
 #+END_SRC
 
-
 ** SSH
 To connect to the container with SSH you'll need to check out the
 [[https://github.com/phusion/baseimage-docker/raw/master/image/insecure_key][phusion/baseimage documentation]].
@@ -30,11 +29,11 @@ Once you have the ID, look for its IP address with:
 Now SSH into the container as follows:
 =ssh -i /path-to/your_key root@<IP address>=
 
-
 * TODO
 ** use ssh certificates for login
 #+BEGIN_SRC config sshd_config
 AllowUsers attic
 TrustedUserCAKeys /etc/ssh/user_ca.pub
 #+END_SRC
+
 ** reduce ssh login to an only command ¿attic?
