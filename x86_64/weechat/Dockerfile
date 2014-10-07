@@ -39,7 +39,7 @@ ADD weechat.sh /etc/service/weechat/run
 ADD 10-weechat.sh /etc/my_init.d/10-weechat.sh
 
 # Support UTF8
-#ENV LANG C.UTF-8
+ENV LANG C.UTF-8
 #ENV TERM screen-256color
 
 EXPOSE 8004 22
